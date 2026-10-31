@@ -61,7 +61,7 @@ Consequences: Distribution by APK sideload/GitHub first; store publishing later 
 
 ## ADR-0011 — SDK levels
 Status: Proposed · 2026-10-31
-Decision (proposed): `minSdk 26` (Android 8.0). `compileSdk`/`targetSdk` = latest stable at P0-02; record exact numbers here when set.
+Decision (proposed; used at bootstrap): `minSdk 26` (Android 8.0). `compileSdk`/`targetSdk` = latest stable at P0-02; record exact numbers here when set.
 Consequences: Covers the large majority of active devices, simplifies notification channels and java.time use. Revisit if user feedback needs older devices.
 
 ## ADR-0012 — Two modules to start
@@ -82,4 +82,23 @@ Decision: Pending owner. Until decided, no LICENSE file; repo is "all rights res
 ## ADR-0015 — Project name and application id
 Status: Open · 2026-10-31
 Context: "Ampere" is a working codename; application id proposed as `site.yatharthwebs.ampere`.
-Decision: Pending owner. Do a name/trademark/store-name check before public release. Changing the application id after any public release breaks in-place updates — settle before `v0.1.0`.
+Update 2026-10-31: GitHub repo created as `YatharthJorwal/Ampere`; bootstrap uses package `site.yatharthwebs.ampere`.
+Decision: Final name pending owner. Do a name/trademark/store-name check before public release. Changing the application id after any public release breaks in-place updates — settle before `v0.1.0`.
+
+---
+## ADR-0016 — Introduce Hilt, Room and Media3 when first needed (not in Phase 0)
+Status: Accepted · 2026-10-31
+Context: Library versions must match the AGP/Kotlin/KSP set that the Android Studio template generates. Adding unused dependencies in Phase 0 adds build risk with no benefit.
+Decision: Phase 0 adds no DI, database, or media dependencies. Hilt arrives with the first service/ViewModel that needs it (P1-04/P1-05), Room with the scanner (P1-02), Media3 with the playback service (P1-04). Versions are looked up and recorded here at that time. ADR-0008 (choice of Hilt) stands; only the timing changes. P0-03 is reduced to package/app-id/Application setup.
+Consequences: Smaller first build; each dependency lands with the code that proves it works.
+
+## ADR-0017 — Bootstrap from the Android Studio template
+Status: Accepted · 2026-10-31
+Context: AI sessions cannot run Gradle here, so hand-written build files would be untested guesses at plugin versions.
+Decision: The Gradle project (AGP, Kotlin, Compose, wrapper) comes from the Android Studio "Empty Activity" template (Kotlin DSL, minSdk 26, package `site.yatharthwebs.ampere`). Later build changes (`:dsp` module, spotless/detekt, signing) are written against the real generated `libs.versions.toml`, `settings.gradle.kts` and `app/build.gradle.kts`.
+Consequences: Known-good toolchain. First build output must be checked by the owner.
+
+## ADR-0018 — State-based navigation shell until detail screens exist
+Status: Accepted · 2026-10-31
+Decision: Phase 0 top-level navigation is a `rememberSaveable` enum `Destination` in `AmpereApp`. Adopt a navigation library (ADR with version) when the first detail screen needs a back stack (album/artist detail, P1-06).
+Consequences: No extra dependency now; small refactor later.

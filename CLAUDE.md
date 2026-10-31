@@ -31,7 +31,7 @@ Available once P0-02 (Gradle project) and P0-04 (lint/format) are done:
 ./gradlew spotlessCheck detekt     # format + static analysis
 ./gradlew lintDebug                # Android lint
 ```
-Run `spotlessApply` before committing. CI runs the same checks (docs/RELEASE.md).
+On Windows use `.\gradlew.bat`. Run `spotlessApply` before committing (once P0-04 lands). CI runs the same checks (docs/RELEASE.md).
 
 ## Where things live
 ```

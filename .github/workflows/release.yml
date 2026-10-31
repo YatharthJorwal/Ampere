@@ -32,7 +32,7 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
 
       - name: Run checks
-        run: ./gradlew spotlessCheck detekt testDebugUnitTest :dsp:test
+        run: ./gradlew testDebugUnitTest
 
       - name: Build signed APK and AAB
         env:

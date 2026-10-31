@@ -1,4 +1,5 @@
 name: CI
+# spotless/detekt (P0-04) and :dsp:test (P0-02) are added back when those exist.
 
 on:
   push:
@@ -33,17 +34,13 @@ jobs:
         if: steps.detect.outputs.has_gradle == 'true'
         run: chmod +x gradlew
 
-      - name: Format and static analysis
-        if: steps.detect.outputs.has_gradle == 'true'
-        run: ./gradlew spotlessCheck detekt
-
       - name: Lint
         if: steps.detect.outputs.has_gradle == 'true'
         run: ./gradlew lintDebug
 
       - name: Unit tests
         if: steps.detect.outputs.has_gradle == 'true'
-        run: ./gradlew testDebugUnitTest :dsp:test
+        run: ./gradlew testDebugUnitTest
 
       - name: Build debug APK
         if: steps.detect.outputs.has_gradle == 'true'
