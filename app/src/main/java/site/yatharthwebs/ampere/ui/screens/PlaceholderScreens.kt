@@ -83,11 +83,35 @@ fun NowPlayingScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier) {
-    PlaceholderScreen(
-        title = stringResource(R.string.settings_title),
-        body = stringResource(R.string.about_body),
-        modifier = modifier,
-    )
+    Column(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.settings_title),
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Text(
+            text = stringResource(R.string.about_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            text = stringResource(R.string.licenses_title),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(top = 16.dp),
+        )
+        Text(
+            text = stringResource(R.string.licenses_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
 }
 
 @Preview(showBackground = true)

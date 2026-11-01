@@ -4,26 +4,22 @@ Read this right after CLAUDE.md. Update at the end of **every** session. Newest 
 
 ## Current state
 - **Date of last update:** 2026-11-01
-- **Phase:** 0 (Foundations) — in progress
-- **Repo:** github.com/YatharthJorwal/Ampere, local copy at `E:\ampere-project\ampere` (C: was out of space)
-- **Build status:** bundle 01 (app shell) builds and runs on the Android Studio emulator (Medium Phone, API 37): LCD panel, bottom nav, mini-player. Confirmed by owner screenshot. Bundle 02 (`:dsp`, Spotless) has NOT been built on the owner's machine yet.
+- **Phase:** 0 (Foundations) — nearly done
+- **Repo:** github.com/YatharthJorwal/Ampere, local copy at `E:\ampere-project\ampere`
+- **Build/CI:** CI #3 (commit e6c0c5a) green on GitHub Actions: spotlessCheck, lintDebug, testDebugUnitTest + `:dsp:test`, assembleDebug (JDK 25). App runs on the emulator.
 - **Last release tag:** none
 
 ## What exists
-- Docs and workflows.
-- App shell: skin tokens, default skin `ClassicLcdSkin` (code constant until P3-04), `AmpereTheme`, `LcdPanel`, `MiniPlayerPlaceholder`, state-based nav (4 destinations), placeholder screens.
-- Bundle 02: `:dsp` module (pure Kotlin) with `Decibels` and `EqBands` + tests; Spotless/ktlint config (`.editorconfig`, root `build.gradle.kts`); CI uses JDK 25 and runs `spotlessCheck`, `lintDebug`, unit tests incl. `:dsp:test`, `assembleDebug`.
-- Verified in the AI sandbox: `:dsp` compiles with Kotlin 2.2.10 and its 9 tests pass (run against a minimal JUnit stand-in); ktlint 1.8.0 passes on all Kotlin and Gradle scripts. NOT verified: the Gradle wiring itself (kotlin-jvm plugin next to AGP 9.5, Spotless plugin), which can only be checked by a real Gradle run.
+- Docs, workflows, app shell (skin tokens, default skin, LCD panel, nav shell), `:dsp` module (`Decibels`, `EqBands` + tests), Spotless/ktlint with LF line endings.
+- Bundle 03 (written, awaiting owner build): release signing config in `app/build.gradle.kts`, version from Gradle properties, About/licenses text on the Settings screen. Not yet verified: the new `signingConfigs`/`versionName` DSL lines against AGP 9.5 (written without a Gradle run) and the signed release build itself.
 
 ## Next up (in order)
-1. Owner: apply bundle 02, run `.\gradlew.bat spotlessCheck :dsp:test assembleDebug`, commit, push, and report the CI result.
-2. P0-08: release signing in `app/build.gradle.kts` (AGP 9 uses the new `optimization {}` DSL, so write against the real file), create keystore, GitHub secrets, tag `v0.0.1`.
-3. P0-09: About screen licenses list.
-4. Phase 0 exit review, then Phase 1 (P1-01 permissions). Phase 1 adds Room, Media3 and Hilt; look up their versions then (ADR-0016).
+1. Owner: apply bundle 03, run `.\gradlew.bat spotlessCheck assembleRelease` (unsigned local release build exercises R8 and the new DSL), commit, push, CI green.
+2. P0-08: create keystore (docs/RELEASE.md section 3), add the four GitHub secrets, tag `v0.0.1`, confirm the Release page has a signed APK + AAB + SHA256SUMS, install the APK on a phone.
+3. Phase 0 exit review (approval gate), then Phase 1 starts at P1-01 (permissions). Phase 1 adds Room, Media3 and Hilt; look up their versions then (ADR-0016).
 
 ## In progress / half-finished
-- P0-02 and P0-04 are `[~]` until bundle 02 builds in CI.
-- P0-08, P0-09 not started.
+- P0-08 and P0-09 are `[~]` until the tag build and the on-device check.
 
 ## Open questions for the owner
 1. Final app name (repo is `Ampere`; ADR-0015). Application id in use: `site.yatharthwebs.ampere`.
@@ -43,6 +39,8 @@ See docs/PHASES.md Risks R1–R8. Possible Gradle plugin version clash when `:ds
 - Clean-room: nobody involved has read Winamp source code.
 
 ## Session log
+### 2026-11-01 — Bundle 03
+- CI green. Wrote release signing (env-var based), version properties, licenses text. Nothing built yet by owner.
 ### 2026-11-01 — Bundle 02 patch a
 - First owner build: `spotlessCheck` failed on CRLF vs LF line endings (Windows). Fixed by enforcing LF; also `@param:StringRes` to silence a Kotlin 2.2 annotation-target warning.
 ### 2026-11-01 — Bundle 02
