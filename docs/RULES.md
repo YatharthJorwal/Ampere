@@ -14,10 +14,11 @@ Binding for every contributor, human or AI. If a rule is wrong, change it here v
 - Conventional Commits: `feat|fix|refactor|test|docs|build|ci|chore(scope): summary`. Scope examples: `eq`, `playback`, `library`, `skin`, `ui`, `dsp`.
 - Body mentions task ID: `Refs: P2-02`.
 - Tags: `vMAJOR.MINOR.PATCH` (pre-releases `v0.2.0-rc.1`). Tag only from `main`.
+- Line endings are LF everywhere (`.gitattributes`, `.editorconfig`, Spotless `lineEndings`). `.bat` files stay CRLF. After extracting a zip or editing in Windows tools, run `spotlessApply` if `spotlessCheck` complains.
 - Never commit: keystores, `keystore.properties`, `.env`, `local.properties`, build outputs, large binaries (use Git LFS only if truly needed, ADR first).
 
 ## 3. Kotlin and code style
-- Kotlin official style, enforced by Spotless/ktlint and detekt. Max line 120.
+- Kotlin official style, enforced by Spotless/ktlint (detekt deferred, ADR-0019). Max line 120.
 - Prefer immutable data classes, sealed types for state/events, explicit visibility (`internal` by default for non-API).
 - No `!!` outside tests. No `GlobalScope`. No blocking calls on the main thread.
 - Public functions in `:dsp` have KDoc with units (Hz, dB, samples) and the source of the algorithm.

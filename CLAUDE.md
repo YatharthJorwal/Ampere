@@ -23,15 +23,15 @@ This file is the entry point. Read it fully at the start of every session.
 10. Do not invent library versions or API names. Check the official docs or the Gradle catalog first.
 
 ## Commands
-Available once P0-02 (Gradle project) and P0-04 (lint/format) are done:
+Available now (Gradle project, :dsp and Spotless exist):
 ```
 ./gradlew assembleDebug            # debug APK
 ./gradlew testDebugUnitTest        # unit tests (includes :dsp)
 ./gradlew :dsp:test                # DSP tests only (fast, JVM)
-./gradlew spotlessCheck detekt     # format + static analysis
+./gradlew spotlessCheck            # ktlint format check (spotlessApply fixes it); detekt deferred, ADR-0019
 ./gradlew lintDebug                # Android lint
 ```
-On Windows use `.\gradlew.bat`. Run `spotlessApply` before committing (once P0-04 lands). CI runs the same checks (docs/RELEASE.md).
+On Windows use `.\gradlew.bat`. Run `spotlessApply` before committing. CI runs the same checks (docs/RELEASE.md).
 
 ## Where things live
 ```

@@ -1,7 +1,7 @@
 # RELEASE — CI, signing, and GitHub Releases
 
 ## 1. Workflows
-- `.github/workflows/ci.yml` — on push to `main` and on PRs: format check, detekt, lint, unit tests, debug build. Build steps are skipped until `gradlew` exists (so the docs-only first commit doesn't fail).
+- `.github/workflows/ci.yml` — on push to `main` and on PRs: format check, lint, unit tests, debug build. Build steps are skipped until `gradlew` exists (so the docs-only first commit doesn't fail).
 - `.github/workflows/release.yml` — on tag `vX.Y.Z[-suffix]`: builds signed release APK + AAB, writes `SHA256SUMS.txt`, creates a GitHub Release with auto-generated notes. Tags containing `-` (e.g. `v0.2.0-rc.1`) are marked pre-release.
 
 Action versions in the YAML (`checkout@v4`, `setup-java@v4`, `gradle/actions/setup-gradle@v4`, `softprops/action-gh-release@v2`) were current when written; check for newer majors when you set this up.

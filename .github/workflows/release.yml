@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '25'
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -32,7 +32,7 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
 
       - name: Run checks
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew spotlessCheck testDebugUnitTest :dsp:test
 
       - name: Build signed APK and AAB
         env:

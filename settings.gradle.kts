@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Ampere"
 include(":app")
- 
+include(":dsp")

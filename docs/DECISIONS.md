@@ -61,7 +61,7 @@ Consequences: Distribution by APK sideload/GitHub first; store publishing later 
 
 ## ADR-0011 — SDK levels
 Status: Proposed · 2026-10-31
-Decision (proposed; used at bootstrap): `minSdk 26` (Android 8.0). `compileSdk`/`targetSdk` = latest stable at P0-02; record exact numbers here when set.
+Decision (proposed; used at bootstrap): `minSdk 26` (Android 8.0). Bootstrap template set `compileSdk` 37 and `targetSdk` 37.
 Consequences: Covers the large majority of active devices, simplifies notification channels and java.time use. Revisit if user feedback needs older devices.
 
 ## ADR-0012 — Two modules to start
@@ -102,3 +102,16 @@ Consequences: Known-good toolchain. First build output must be checked by the ow
 Status: Accepted · 2026-10-31
 Decision: Phase 0 top-level navigation is a `rememberSaveable` enum `Destination` in `AmpereApp`. Adopt a navigation library (ADR with version) when the first detail screen needs a back stack (album/artist detail, P1-06).
 Consequences: No extra dependency now; small refactor later.
+
+---
+## ADR-0019 — Defer detekt; keep Spotless + ktlint
+Status: Accepted · 2026-11-01
+Context: The newest stable detekt tag found is v1.23.8; everything newer is a 2.0.0 alpha. It has not been verified against Kotlin 2.2 / AGP 9.5 here, and a failing static-analysis plugin would block the build for no product benefit.
+Decision: Phase 0 enforces style with Spotless + ktlint 1.8.0 (`.editorconfig` at the repo root). detekt is revisited when a stable release with Kotlin 2.2+ / AGP 9 support exists; then add it with its own ADR.
+Consequences: Formatting and basic lint rules are enforced; deeper static analysis is postponed. P0-04 is considered done when `spotlessCheck` passes in CI.
+
+## ADR-0020 — Toolchain facts and CI JDK
+Status: Accepted · 2026-11-01
+Context: The template generated `gradle/gradle-daemon-jvm.properties` with `toolchainVersion=25`; the foojay resolver is enabled in `settings.gradle.kts`.
+Decision: CI and release workflows install Temurin JDK 25 so the Gradle daemon requirement is met deterministically. Bytecode targets stay Java 11 (`app` and `:dsp`). Recorded versions at bootstrap: Gradle 9.6.0 (wrapper), AGP 9.5.0, Kotlin 2.2.10, Compose BOM 2026.02.01, Spotless plugin 8.10.4, ktlint 1.8.0.
+Consequences: Bumping any of these needs a DECISIONS entry. `:dsp` applies `org.jetbrains.kotlin.jvm` at the same version as the catalog `kotlin` entry.

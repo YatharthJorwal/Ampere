@@ -33,7 +33,9 @@ import site.yatharthwebs.ampere.ui.theme.AmpereTheme
 import site.yatharthwebs.ampere.ui.theme.LocalSkin
 
 /** Top-level destinations. Radio joins in Phase 4 (docs/UI_SPEC.md section 2). */
-enum class Destination(@StringRes val labelRes: Int) {
+enum class Destination(
+    @param:StringRes val labelRes: Int,
+) {
     Library(R.string.nav_library),
     Playlist(R.string.nav_playlist),
     NowPlaying(R.string.nav_now_playing),
@@ -58,22 +60,14 @@ fun AmpereApp() {
                         NavigationBarItem(
                             selected = selected,
                             onClick = { current = destination },
-                            icon = {
-                                Box(
-                                    modifier = Modifier
-                                        .size(10.dp)
-                                        .background(
-                                            color = if (selected) skin.colors.accent else skin.colors.onSurfaceMuted,
-                                            shape = CircleShape,
-                                        ),
-                                )
-                            },
+                            icon = { NavDot(selected = selected) },
                             label = { Text(stringResource(destination.labelRes)) },
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedTextColor = skin.colors.accent,
-                                unselectedTextColor = skin.colors.onSurfaceMuted,
-                                indicatorColor = skin.colors.selectionBg,
-                            ),
+                            colors =
+                                NavigationBarItemDefaults.colors(
+                                    selectedTextColor = skin.colors.accent,
+                                    unselectedTextColor = skin.colors.onSurfaceMuted,
+                                    indicatorColor = skin.colors.selectionBg,
+                                ),
                         )
                     }
                 }
@@ -81,9 +75,10 @@ fun AmpereApp() {
         },
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
         ) {
             when (current) {
                 Destination.Library -> LibraryScreen()
@@ -93,6 +88,20 @@ fun AmpereApp() {
             }
         }
     }
+}
+
+@Composable
+private fun NavDot(selected: Boolean) {
+    val colors = LocalSkin.current.colors
+    Box(
+        modifier =
+            Modifier
+                .size(10.dp)
+                .background(
+                    color = if (selected) colors.accent else colors.onSurfaceMuted,
+                    shape = CircleShape,
+                ),
+    )
 }
 
 @Preview(showBackground = true)

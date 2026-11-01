@@ -1,17 +1,12 @@
 package site.yatharthwebs.ampere
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.Assert.*
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+/** Placeholder unit test so the test task has something to run. Real tests arrive with Phase 1 logic. */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
+    fun additionIsCorrect() {
         assertEquals(4, 2 + 2)
     }
 }

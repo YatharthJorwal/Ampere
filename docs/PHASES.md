@@ -9,10 +9,10 @@ Legend: [ ] todo · [~] in progress · [x] done
 Goal: an empty-but-real app that builds in CI and publishes a GitHub Release.
 - [x] P0-01 Create GitHub repo, add these docs, branch protection on `main` (optional), set repo secrets later
 - [~] P0-02 Gradle project: `:app` (Compose, Hilt, Room, Media3 deps via `gradle/libs.versions.toml`) + `:dsp` (Kotlin JVM). Record chosen SDK levels and library versions in DECISIONS.md
-- [~] P0-03 Application id/package decided (see HANDOFF open questions), app icon placeholder (original), `Application` class, Hilt wired
-- [ ] P0-04 Spotless + ktlint + detekt configured; `./gradlew spotlessCheck detekt` passes
-- [~] P0-05 Theme layer: `SkinTokens`, `LocalSkin`, default "Classic LCD" skin as code constants; previews render
-- [~] P0-06 Navigation shell: bottom bar with placeholder screens, mini-player placeholder
+- [x] P0-03 Application id/package decided (see HANDOFF open questions), app icon placeholder (original), `Application` class, Hilt wired
+- [~] P0-04 Spotless + ktlint + detekt configured; `./gradlew spotlessCheck detekt` passes
+- [x] P0-05 Theme layer: `SkinTokens`, `LocalSkin`, default "Classic LCD" skin as code constants; previews render
+- [x] P0-06 Navigation shell: bottom bar with placeholder screens, mini-player placeholder
 - [x] P0-07 CI workflow (`ci.yml`) green on PR/push
 - [ ] P0-08 Release workflow (`release.yml`) + signing config; create keystore; add secrets; tag `v0.0.1` produces a GitHub Release with signed APK + AAB + SHA256SUMS
 - [ ] P0-09 `docs/ASSETS.md` created (license log), About screen stub with licenses (use a licenses plugin or manual list)

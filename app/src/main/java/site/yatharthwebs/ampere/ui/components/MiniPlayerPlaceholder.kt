@@ -25,12 +25,13 @@ fun MiniPlayerPlaceholder(
 ) {
     val skin = LocalSkin.current
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(skin.colors.surfaceVariant)
-            .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(skin.colors.surfaceVariant)
+                .clickable(onClick = onClick)
+                .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(

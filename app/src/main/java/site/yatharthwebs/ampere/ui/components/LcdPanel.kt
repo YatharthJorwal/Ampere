@@ -25,11 +25,12 @@ fun LcdPanel(
 ) {
     val skin = LocalSkin.current
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(skin.shapes.cornerMedium))
-            .background(skin.colors.lcdBackground)
-            .padding(16.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(skin.shapes.cornerMedium))
+                .background(skin.colors.lcdBackground)
+                .padding(16.dp),
     ) {
         Text(
             text = timeText,
