@@ -42,15 +42,6 @@ private fun PlaceholderScreen(
 }
 
 @Composable
-fun LibraryScreen(modifier: Modifier = Modifier) {
-    PlaceholderScreen(
-        title = stringResource(R.string.library_title),
-        body = stringResource(R.string.library_body),
-        modifier = modifier,
-    )
-}
-
-@Composable
 fun PlaylistScreen(modifier: Modifier = Modifier) {
     PlaceholderScreen(
         title = stringResource(R.string.playlist_title),

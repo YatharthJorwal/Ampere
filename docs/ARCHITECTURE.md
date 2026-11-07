@@ -108,7 +108,7 @@ Skin = immutable `SkinPack` loaded from bundled assets or an imported `.ampskin`
 Kotlin coroutines + Flow. `viewModelScope` in UI, a service-scoped `CoroutineScope(SupervisorJob() + Dispatchers.Default)` in playback, IO dispatcher for DB/files. No `GlobalScope`. Dedicated single thread for analysis.
 
 ## 10. DI
-Hilt (with KSP). Service and ViewModels are `@AndroidEntryPoint`/`@HiltViewModel`. `:dsp` has no DI; constructed by `:app`.
+Manual constructor injection through `AppContainer`, created by `AmpereApplication` (ADR-0021). ViewModels get dependencies through small `ViewModelProvider.Factory` classes. `:dsp` has no DI; constructed by `:app`. Revisit Hilt when wiring becomes painful and its AGP 9 / KSP compatibility is verified.
 
 ## 11. Testing strategy
 - `:dsp`: JVM unit tests — biquad coefficients vs reference values, frequency response (feed sine, measure gain), FFT vs known signals, ring buffer concurrency.

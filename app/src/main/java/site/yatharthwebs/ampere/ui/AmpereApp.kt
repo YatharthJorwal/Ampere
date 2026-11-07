@@ -21,14 +21,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import site.yatharthwebs.ampere.R
 import site.yatharthwebs.ampere.ui.components.MiniPlayerPlaceholder
-import site.yatharthwebs.ampere.ui.screens.LibraryScreen
 import site.yatharthwebs.ampere.ui.screens.NowPlayingScreen
 import site.yatharthwebs.ampere.ui.screens.PlaylistScreen
 import site.yatharthwebs.ampere.ui.screens.SettingsScreen
+import site.yatharthwebs.ampere.ui.screens.library.LibraryScreen
+import site.yatharthwebs.ampere.ui.screens.library.LibraryViewModel
+import site.yatharthwebs.ampere.ui.screens.library.PreviewTrackSource
 import site.yatharthwebs.ampere.ui.theme.AmpereTheme
 import site.yatharthwebs.ampere.ui.theme.LocalSkin
 
@@ -43,7 +46,7 @@ enum class Destination(
 }
 
 @Composable
-fun AmpereApp() {
+fun AmpereApp(libraryViewModel: LibraryViewModel) {
     val skin = LocalSkin.current
     var current by rememberSaveable { mutableStateOf(Destination.NowPlaying) }
 
@@ -61,7 +64,14 @@ fun AmpereApp() {
                             selected = selected,
                             onClick = { current = destination },
                             icon = { NavDot(selected = selected) },
-                            label = { Text(stringResource(destination.labelRes)) },
+                            label = {
+                                Text(
+                                    text = stringResource(destination.labelRes),
+                                    maxLines = 1,
+                                    softWrap = false,
+                                    overflow = TextOverflow.Visible,
+                                )
+                            },
                             colors =
                                 NavigationBarItemDefaults.colors(
                                     selectedTextColor = skin.colors.accent,
@@ -81,7 +91,7 @@ fun AmpereApp() {
                     .padding(innerPadding),
         ) {
             when (current) {
-                Destination.Library -> LibraryScreen()
+                Destination.Library -> LibraryScreen(viewModel = libraryViewModel)
                 Destination.Playlist -> PlaylistScreen()
                 Destination.NowPlaying -> NowPlayingScreen()
                 Destination.Settings -> SettingsScreen()
@@ -107,5 +117,5 @@ private fun NavDot(selected: Boolean) {
 @Preview(showBackground = true)
 @Composable
 private fun AmpereAppPreview() {
-    AmpereTheme { AmpereApp() }
+    AmpereTheme { AmpereApp(libraryViewModel = LibraryViewModel(PreviewTrackSource)) }
 }

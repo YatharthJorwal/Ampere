@@ -115,3 +115,20 @@ Status: Accepted · 2026-11-01
 Context: The template generated `gradle/gradle-daemon-jvm.properties` with `toolchainVersion=25`; the foojay resolver is enabled in `settings.gradle.kts`.
 Decision: CI and release workflows install Temurin JDK 25 so the Gradle daemon requirement is met deterministically. Bytecode targets stay Java 11 (`app` and `:dsp`). Recorded versions at bootstrap: Gradle 9.6.0 (wrapper), AGP 9.5.0, Kotlin 2.2.10, Compose BOM 2026.02.01, Spotless plugin 8.10.4, ktlint 1.8.0.
 Consequences: Bumping any of these needs a DECISIONS entry. `:dsp` applies `org.jetbrains.kotlin.jvm` at the same version as the catalog `kotlin` entry.
+
+---
+## ADR-0021 — Manual DI instead of Hilt for now
+Status: Accepted · 2026-11-01
+Context: Hilt needs a Gradle plugin plus KSP. Compatibility of that combination with AGP 9.5's built-in Kotlin and Kotlin 2.2.10 was not verified, and a broken plugin stack would block every other task. Dagger's newest stable tag found is 2.60.1.
+Decision: Phase 1 uses hand-wired dependencies: `AppContainer` (created by `AmpereApplication`) and `ViewModelProvider.Factory` classes. Supersedes the timing and, for now, the choice in ADR-0008 and ADR-0016.
+Consequences: No DI plugin. More boilerplate per screen. Migration to Hilt later is mechanical (constructors already take their dependencies).
+
+## ADR-0022 — Staged persistence and dependency versions for Phase 1
+Status: Accepted · 2026-11-01
+Context: Room needs KSP (same risk class as Hilt) and is only essential once playlists and queue persistence exist.
+Decision: P1-02/P1-06 read MediaStore directly (no database). Room, KSP and the schema come with playlists and queue persistence (P1-09/P1-10) in their own bundle so a toolchain problem is isolated. Versions chosen from the official release pages and tags (checked 2026-11-01): Media3 1.11.1, Room 2.8.5 (stable; Room 3 `androidx.room3` is still alpha, not used), KSP 2.3.13 (independent of Kotlin; works with Kotlin 2.2 and newer). Avoid `@Parcelize` on Room entities (open KSP issue with AGP 9 built-in Kotlin).
+Consequences: Library list is not cached between launches yet (a MediaStore query is fast). Ratings and play counts (P2) will need Room first.
+
+## ADR-0023 — The repo owns AndroidManifest.xml
+Status: Accepted · 2026-11-01
+Decision: `app/src/main/AndroidManifest.xml` is maintained in the repo from bundle 04 onward (declares `AmpereApplication`, audio-read permissions; the playback service and foreground-service permissions arrive in P1-04).

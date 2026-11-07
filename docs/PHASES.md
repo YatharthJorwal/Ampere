@@ -14,18 +14,18 @@ Goal: an empty-but-real app that builds in CI and publishes a GitHub Release.
 - [x] P0-05 Theme layer: `SkinTokens`, `LocalSkin`, default "Classic LCD" skin as code constants; previews render
 - [x] P0-06 Navigation shell: bottom bar with placeholder screens, mini-player placeholder
 - [x] P0-07 CI workflow (`ci.yml`) green on PR/push
-- [~] P0-08 Release workflow (`release.yml`) + signing config; create keystore; add secrets; tag `v0.0.1` produces a GitHub Release with signed APK + AAB + SHA256SUMS
-- [~] P0-09 `docs/ASSETS.md` created (license log), About screen stub with licenses (use a licenses plugin or manual list)
+- [x] P0-08 Release workflow (`release.yml`) + signing config; create keystore; add secrets; tag `v0.0.1` produces a GitHub Release with signed APK + AAB + SHA256SUMS
+- [x] P0-09 `docs/ASSETS.md` created (license log), About screen stub with licenses (use a licenses plugin or manual list)
 **Exit:** tag → signed APK downloadable from GitHub Releases and installs on a phone; CI green.
 
 ## Phase 1 — Player core (MVP)
 Goal: a solid, boring-in-a-good-way music player.
-- [ ] P1-01 Permissions flow (READ_MEDIA_AUDIO, notifications) with rationale screens
-- [ ] P1-02 MediaStore scanner → Room (tracks/artists/albums), incremental rescan, progress state (F-LIB-01)
+- [~] P1-01 Permissions flow (READ_MEDIA_AUDIO, notifications) with rationale screens
+- [~] P1-02 MediaStore scanner → Room (tracks/artists/albums), incremental rescan, progress state (F-LIB-01)
 - [ ] P1-03 Tag reader choice (license-checked) + ReplayGain/lyrics tag plumbing stubs; ADR
 - [ ] P1-04 `PlaybackService` + ExoPlayer + MediaSession + foreground notification (F-PLAY-01/02/11, F-SYS-01)
 - [ ] P1-05 `PlaybackRepository` + `PlayerState` flow; mini player wired
-- [ ] P1-06 Library screens: Songs/Albums/Artists/Genres/Folders, fast scroll, search (F-LIB-02/03)
+- [~] P1-06 Library screens: Songs/Albums/Artists/Genres/Folders, fast scroll, search (F-LIB-02/03)
 - [ ] P1-07 Album art loading + cache (F-LIB-04)
 - [ ] P1-08 Queue: reorder, remove, play next/add (F-LIST-01)
 - [ ] P1-09 Shuffle/repeat + persistence; queue/position resume across restarts (F-PLAY-04/05)

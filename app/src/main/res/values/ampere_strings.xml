@@ -7,8 +7,6 @@
 
     <string name="mini_player_idle">Nothing playing</string>
 
-    <string name="library_title">Library</string>
-    <string name="library_body">Your music will appear here once library scanning is built.</string>
     <string name="playlist_title">Playlist</string>
     <string name="playlist_body">Your queue and saved playlists will appear here.</string>
     <string name="settings_title">Settings</string>
@@ -20,4 +18,23 @@
     <string name="lcd_time_zero">00:00</string>
     <string name="lcd_no_track">No track loaded</string>
     <string name="lcd_tech_none">-- kbps -- kHz</string>
+
+    <string name="permission_title">Allow access to your music</string>
+    <string name="permission_body">Ampere needs permission to read audio files on this device. Nothing leaves your phone.</string>
+    <string name="permission_denied_body">Access was turned off. You can allow it in the app settings.</string>
+    <string name="permission_allow">Allow access</string>
+    <string name="permission_open_settings">Open settings</string>
+
+    <string name="library_search_hint">Search songs</string>
+    <plurals name="library_song_count">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+    <string name="library_rescan">Rescan</string>
+    <string name="library_loading">Scanning your music</string>
+    <string name="library_empty_title">No music found</string>
+    <string name="library_empty_body">Add audio files to your phone, then tap Rescan.</string>
+    <string name="library_no_results">No songs match your search.</string>
+    <string name="library_error">Could not read your music library. Tap Rescan to try again.</string>
+    <string name="unknown_artist">Unknown artist</string>
 </resources>
